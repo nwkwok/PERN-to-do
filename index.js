@@ -3,7 +3,7 @@ const app = express();
 const cors = require('cors');
 const pool = require('./db')
 const path = require('path');
-const PORT = procoess.env.PORT || 5000
+const PORT = process.env.PORT || 5000
 
 //process.env.PORT 
 //process.env.NODE_ENV => production or undefined
@@ -22,7 +22,6 @@ if(process.env.NODE_ENV === "production"){
 //ROUTES//
 
 //create a todo
-
 app.post('/todos', async(req, res) => {
     try {
         const { description } = req.body;
@@ -87,6 +86,10 @@ app.delete('/todos/:id', async(req, res) => {
     } catch (err) {
         console.log(err.message)
     }
+})
+
+app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "client/builder/index.html"))
 })
 
 
